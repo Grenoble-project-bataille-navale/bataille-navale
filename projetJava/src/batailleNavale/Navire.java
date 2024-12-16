@@ -8,12 +8,13 @@ public class Navire {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Navire test = new Navire(new Coordonnee(0, 0), 2, false);
-		Navire test2 = new Navire(new Coordonnee(1, 2), 4, false);
+		Navire test = new Navire(new Coordonnee(0, 0), 5, true);
+		Navire test2 = new Navire(new Coordonnee(2, 0), 2, false);
 		System.out.println(test);
 		System.out.println(test2);
 		Coordonnee a = new Coordonnee("B2");
 		System.out.println(test.contient(a));
+		System.out.println(test.chevauche(test2));
 	}
 
 	public Navire(Coordonnee debut, int longueur, boolean estVertical) {
@@ -23,10 +24,10 @@ public class Navire {
 		this.partiesTouchees = new Coordonnee[longueur];
 		this.nbTouchees = 0;
 		if (estVertical) {
-			fin = new Coordonnee(debut.getLigne() + longueur-1, debut.getColonne());
+			fin = new Coordonnee(debut.getLigne() + longueur - 1, debut.getColonne());
 
 		} else {
-			fin = new Coordonnee(debut.getLigne(), debut.getColonne() + longueur-1);
+			fin = new Coordonnee(debut.getLigne(), debut.getColonne() + longueur - 1);
 		}
 
 	}
@@ -34,12 +35,13 @@ public class Navire {
 	public String toString() {
 		String axe;
 		int longueur;
-		if (!estVertical()) {
-			axe = "horizontal";
-			longueur = fin.getColonne() - debut.getColonne()+1;
-		} else {
+		if (estVertical()) {
 			axe = "vertical";
-			longueur = fin.getLigne() - debut.getLigne()+1;
+			longueur = fin.getLigne() - debut.getLigne() + 1;
+
+		} else {
+			axe = "horizontal";
+			longueur = fin.getColonne() - debut.getColonne() + 1;
 		}
 		return "Navire(" + debut.toString() + ", " + longueur + " ," + axe + " )";
 	}
@@ -78,13 +80,14 @@ public class Navire {
 	}
 
 	public boolean chevauche(Navire n) {
-		return (((n.debut.getLigne() <= this.debut.getLigne() && n.fin.getLigne() >= this.debut.getLigne())
+		return ((n.debut.getLigne() <= this.debut.getLigne() && n.fin.getLigne() >= this.debut.getLigne())
 				|| (this.debut.getLigne() <= n.debut.getLigne() && this.fin.getLigne() >= n.debut.getLigne()))
-				&& (n.debut.getColonne() == this.debut.getColonne()))
-				|| (((n.debut.getColonne() <= this.debut.getColonne() && n.fin.getColonne() >= this.debut.getColonne())
+//				&& (n.debut.getColonne() == this.debut.getColonne()))
+				&&
+				 ((n.debut.getColonne() <= this.debut.getColonne() && n.fin.getColonne() >= this.debut.getColonne())
 						|| (this.debut.getColonne() <= n.debut.getColonne()
-								&& this.fin.getColonne() >= n.debut.getColonne()))
-						&& (n.debut.getLigne() == this.debut.getLigne()));
+								&& this.fin.getColonne() >= n.debut.getColonne()));
+//						&& (n.debut.getLigne() == this.debut.getLigne()));
 	}
 
 	public boolean recoitTir(Coordonnee c) {
