@@ -83,9 +83,12 @@ public class GrilleNavale {
 	public boolean ajouterNavire(Navire n) {
 		
 		if(this.nbNavires >= this.navires.length) return false;
-		for (int i=0; i< navires.length; i++) {
-			if (navires[i] == null || navires[i].touche(n) || navires[i].chevauche(n)) continue;
-		}
+		for (int i = 0; i < this.nbNavires; i++) {
+	        
+	        if (navires[i].touche(n) || navires[i].chevauche(n)) {
+	            return false; 
+	        }
+	    }
 		navires[this.nbNavires] =n;
 		this.nbNavires++;
 		return true;
@@ -99,17 +102,17 @@ public class GrilleNavale {
 			while(!place) {
 				System.out.println(place);
 				boolean[] estVerticale = {true, false};
-				int debutAlea = (int) (Math.random()* taille +1);
-				int lngAlea = (int) (Math.random()* taille +1);
-//				if (lngAlea > taille - debutAlea  ) {
-//					continue;
-//				};
 				int indice = (int) (Math.random()*2);
-				boolean v = estVerticale[indice];
-				Coordonnee C = new Coordonnee(debutAlea,lngAlea);
-				System.out.println(C);
-				Navire n = new Navire(C,lngAlea, v);
-				if ((v && lngAlea > taille - C.getLigne()) || (!v && lngAlea> taille - C.getColonne())) continue;
+				int ligneAlea = (int) (Math.random() * taille);
+				int colonneAlea = (int) (Math.random() * taille);
+				boolean estVertical = estVerticale[indice];
+				if ((estVertical && ligneAlea + taillesNavires[i] > taille) ||
+		                (!estVertical && colonneAlea + taillesNavires[i] > taille)) {
+		                continue;
+		            }
+				Coordonnee c = new Coordonnee(ligneAlea,colonneAlea);
+				Navire n = new Navire(c, taillesNavires[i], estVertical);
+				
 				if(ajouterNavire(n)) {
 					place=true;
 				}
@@ -118,25 +121,28 @@ public class GrilleNavale {
 		
 	}
 	private boolean estDansGrille(Coordonnee c) {
-		if (c.getColonne()<0 || c.getLigne() <0 || c.getColonne()>taille || c.getLigne() > taille) return false;
-		return true;
+		return c.getColonne() >= 0 && c.getColonne() < taille &&
+		           c.getLigne() >= 0 && c.getLigne() < taille;
 	}
 	
 	private boolean estDansTirsRecus(Coordonnee c) {
-		if (!this.estDansGrille(c)) return false;
+		if (c==null || !this.estDansGrille(c)) return false;
 		for (int i =0 ; i< nbTirsRecus; i++) {
 			if(tirsRecu[i].equals(c)) return true;
 		}
 		return false;
-	}
+	} 
 	
 	private boolean ajouteDansTirsRecus(Coordonnee c) {
-		if(estDansTirsRecus(c)) {
-			tirsRecu[nbTirsRecus+1]=c;
-			nbTirsRecus++;
-			return true;
-		}
-		return false;
+		if(c == null && !estDansTirsRecus(c)) return false;
+		if (nbTirsRecus >= tirsRecu.length) {
+	        throw new ArrayIndexOutOfBoundsException("Le tableau des tirs reçus est plein.");
+	    }
+		tirsRecu[nbTirsRecus]=c;
+		nbTirsRecus++;
+			
+		
+		return true;
 	}
 	public boolean recoitTir(Coordonnee c) {
 		if (!(ajouteDansTirsRecus(c))) return false;
