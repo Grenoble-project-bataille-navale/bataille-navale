@@ -18,6 +18,7 @@ public class Navire {
 			throw new IllegalArgumentException("La longueur d'un bateau ne peut pas être négative ou nul");
 		this.debut = debut;
 		this.partiesTouchees = new Coordonnee[longueur];
+		this.nbTouchees = 0;
 		if (estVertical) {
 			fin = new Coordonnee(debut.getLigne() + longueur-1, debut.getColonne());
 
