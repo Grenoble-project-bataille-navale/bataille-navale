@@ -92,17 +92,21 @@ public class GrilleNavale {
 	}
 	public boolean recoitTir(Coordonnee c) {
 		if (!(ajouteDansTirsRecus(c))) return false;
-		for (int i = 0; i< navires.length; i++) {
+//		for (int i = 0; i< navires.length; i++) {
+//			if (navires[i].estTouche(c)) return true;
+//		}
+		return estTouche(c);
+//		return false;
+	}
+	public boolean estTouche(Coordonnee c) {
+		for(int i=0; i<navires.length; i++) {
 			if (navires[i].estTouche(c)) return true;
 		}
 		return false;
 	}
-	public boolean estTouche(Coordonnee c) {
-		return false;
-	}
 	
 	public boolean estALeau(Coordonnee c) {
-		return false;
+		return estDansTirsRecus(c) &&  recoitTir(c);
 	}
 	
 	public boolean estCoule(Coordonnee c) {
