@@ -10,7 +10,8 @@ public class Navire {
 		// TODO Auto-generated method stub
 		Navire test = new Navire(new Coordonnee(0, 0), 2, false);
 		Navire test2 = new Navire(new Coordonnee(1, 2), 4, false);
-		System.out.println(test.touche(test2));
+		System.out.println(test);
+		System.out.println(test2);
 	}
 
 	public Navire(Coordonnee debut, int longueur, boolean estVertical) {
@@ -33,10 +34,10 @@ public class Navire {
 		int longueur;
 		if (!estVertical()) {
 			axe = "horizontal";
-			longueur = fin.getColonne() - debut.getColonne();
+			longueur = fin.getColonne() - debut.getColonne()+1;
 		} else {
 			axe = "vertical";
-			longueur = fin.getLigne() - debut.getLigne();
+			longueur = fin.getLigne() - debut.getLigne()+1;
 		}
 		return "Navire(" + debut.toString() + ", " + longueur + " ," + axe + " )";
 	}
