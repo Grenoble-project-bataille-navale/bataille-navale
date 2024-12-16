@@ -8,21 +8,21 @@ public class Navire {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Navire test = new Navire(new Coordonnee(1, 0), 4, false);
-		Navire test2 = new Navire(new Coordonnee(1, 0), 4, false);
-		System.out.println(test.chevauche(test2));
+		Navire test = new Navire(new Coordonnee(0, 0), 2, false);
+		Navire test2 = new Navire(new Coordonnee(1, 2), 4, false);
+		System.out.println(test.touche(test2));
 	}
 
 	public Navire(Coordonnee debut, int longueur, boolean estVertical) {
-		if (longueur == 0)
-			throw new IllegalArgumentException();
+		if (longueur < 1)
+			throw new IllegalArgumentException("La longueur d'un bateau ne peut pas être négative ou nul");
 		this.debut = debut;
 		this.partiesTouchees = new Coordonnee[longueur];
 		if (estVertical) {
-			fin = new Coordonnee(debut.getLigne() + longueur, debut.getColonne());
+			fin = new Coordonnee(debut.getLigne() + longueur-1, debut.getColonne());
 
 		} else {
-			fin = new Coordonnee(debut.getLigne(), debut.getColonne() + longueur);
+			fin = new Coordonnee(debut.getLigne(), debut.getColonne() + longueur-1);
 		}
 
 	}
@@ -46,14 +46,6 @@ public class Navire {
 
 	}
 
-	private int longueur() {
-		// methode outil
-		if (this.estVertical())
-			return this.fin.getLigne() - this.debut.getLigne();
-		else
-			return this.fin.getColonne() - this.debut.getColonne();
-	}
-
 	public Coordonnee getDebut() {
 		return debut;
 	}
@@ -70,29 +62,25 @@ public class Navire {
 	}
 
 	public boolean touche(Navire n) {
-		return 
-		(((n.debut.getLigne() <= this.debut.getLigne() && n.fin.getLigne() >= this.debut.getLigne())
-		||(this.debut.getLigne() <= n.debut.getLigne() && this.fin.getLigne()>= n.debut.getLigne()))
-		&&
-		(n.debut.getColonne()==this.fin.getColonne()+1||this.debut.getColonne()==n.fin.getColonne()+1))
-		||
-		(((n.debut.getColonne() <= this.debut.getColonne() && n.fin.getColonne() >= this.debut.getColonne() )
-		||(this.debut.getColonne() <= n.debut.getColonne() && this.fin.getColonne()>= n.debut.getColonne()))
-		&&
-		(n.debut.getLigne()==this.fin.getLigne()+1||this.debut.getLigne()==n.fin.getLigne()+1));
+		return (((n.debut.getLigne() <= this.debut.getLigne() && n.fin.getLigne() >= this.debut.getLigne())
+				|| (this.debut.getLigne() <= n.debut.getLigne() && this.fin.getLigne() >= n.debut.getLigne()))
+				&& (n.debut.getColonne() == this.fin.getColonne() + 1
+						|| this.debut.getColonne() == n.fin.getColonne() + 1))
+				|| (((n.debut.getColonne() <= this.debut.getColonne() && n.fin.getColonne() >= this.debut.getColonne())
+						|| (this.debut.getColonne() <= n.debut.getColonne()
+								&& this.fin.getColonne() >= n.debut.getColonne()))
+						&& (n.debut.getLigne() == this.fin.getLigne() + 1
+								|| this.debut.getLigne() == n.fin.getLigne() + 1));
 	}
 
 	public boolean chevauche(Navire n) {
-		return 
-				(((n.debut.getLigne() <= this.debut.getLigne() && n.fin.getLigne() >= this.debut.getLigne())
-				||(this.debut.getLigne() <= n.debut.getLigne() && this.fin.getLigne()>= n.debut.getLigne()))
-				&&
-				(n.debut.getColonne() == this.debut.getColonne()))
-				||
-				(((n.debut.getColonne() <= this.debut.getColonne() && n.fin.getColonne() >= this.debut.getColonne())
-				||(this.debut.getColonne() <= n.debut.getColonne() && this.fin.getColonne()>= n.debut.getColonne()))
-				&&
-				(n.debut.getLigne() == this.debut.getLigne()));	
+		return (((n.debut.getLigne() <= this.debut.getLigne() && n.fin.getLigne() >= this.debut.getLigne())
+				|| (this.debut.getLigne() <= n.debut.getLigne() && this.fin.getLigne() >= n.debut.getLigne()))
+				&& (n.debut.getColonne() == this.debut.getColonne()))
+				|| (((n.debut.getColonne() <= this.debut.getColonne() && n.fin.getColonne() >= this.debut.getColonne())
+						|| (this.debut.getColonne() <= n.debut.getColonne()
+								&& this.fin.getColonne() >= n.debut.getColonne()))
+						&& (n.debut.getLigne() == this.debut.getLigne()));
 	}
 
 	public boolean recoitTir(Coordonnee c) {
