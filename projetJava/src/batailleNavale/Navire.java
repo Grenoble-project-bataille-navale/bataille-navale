@@ -12,6 +12,8 @@ public class Navire {
 		Navire test2 = new Navire(new Coordonnee(1, 2), 4, false);
 		System.out.println(test);
 		System.out.println(test2);
+		Coordonnee a = new Coordonnee("B2");
+		System.out.println(test.contient(a));
 	}
 
 	public Navire(Coordonnee debut, int longueur, boolean estVertical) {
