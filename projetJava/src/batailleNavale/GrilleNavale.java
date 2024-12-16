@@ -84,8 +84,10 @@ public class GrilleNavale {
 		
 		if(this.nbNavires >= this.navires.length) return false;
 		for (int i = 0; i < this.nbNavires; i++) {
-	        
-	        if (navires[i].touche(n) || navires[i].chevauche(n)) {
+	        if ( navires[i].chevauche(n)) System.out.println("Se chevauche");
+	        if (navires[i].touche(n)) return false;
+	        if(navires[i].chevauche(n)) {
+	        	
 	            return false; 
 	        }
 	    }
@@ -97,17 +99,20 @@ public class GrilleNavale {
 	
 	public void placementAuto(int[] taillesNavires) {
 		for (int i=0; i<taillesNavires.length; i++) {
-			System.out.println(i);
+			
 			boolean place=false;
 			while(!place) {
 				System.out.println(place);
 				boolean[] estVerticale = {true, false};
+				
 				int indice = (int) (Math.random()*2);
+				System.out.println(indice);
 				int ligneAlea = (int) (Math.random() * taille);
 				int colonneAlea = (int) (Math.random() * taille);
 				boolean estVertical = estVerticale[indice];
-				if ((estVertical && ligneAlea + taillesNavires[i] > taille) ||
-		                (!estVertical && colonneAlea + taillesNavires[i] > taille)) {
+				if (estVertical && ligneAlea + taillesNavires[i] > taille) continue;
+						
+		         if (!estVertical && colonneAlea + taillesNavires[i] > taille) {
 		                continue;
 		            }
 				Coordonnee c = new Coordonnee(ligneAlea,colonneAlea);
@@ -149,7 +154,7 @@ public class GrilleNavale {
 		for (int i = 0; i< navires.length; i++) {
 			if (navires[i].recoitTir(c)) return true;
 		}
-		//return estTouche(c);
+	
 		return false;
 	}
 	public boolean estTouche(Coordonnee c) {
