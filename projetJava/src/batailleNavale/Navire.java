@@ -3,31 +3,120 @@ package batailleNavale;
 public class Navire {
 	private Coordonnee debut;
 	private Coordonnee fin;
-	private int longueur;
-	private boolean estVertical;
 	private Coordonnee[] partiesTouchees;
 	private int nbTouchees;
-	
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		Navire test = new Navire(new Coordonnee(1, 0), 4, false);
+		Navire test2 = new Navire(new Coordonnee(1, 0), 4, false);
+		System.out.println(test.chevauche(test2));
+	}
+
+	public Navire(Coordonnee debut, int longueur, boolean estVertical) {
+		if (longueur == 0)
+			throw new IllegalArgumentException();
+		this.debut = debut;
+		this.partiesTouchees = new Coordonnee[longueur];
+		if (estVertical) {
+			fin = new Coordonnee(debut.getLigne() + longueur, debut.getColonne());
+
+		} else {
+			fin = new Coordonnee(debut.getLigne(), debut.getColonne() + longueur);
+		}
 
 	}
-	public Navire(Coordonnee debut, int longueur,
-			boolean estVertical) {
-		this.debut = debut;
-		this.longueur = longueur;
-		this.estVertical = estVertical;
-		if ( estVertical) {
-			fin = new Coordonnee(debut.getLigne()+longueur, debut.getColonne());
-	
-		}
-		else {
-			fin = new Coordonnee(debut.getLigne(), debut.getColonne()+longueur);
-		}
-		
-	}
+
 	public String toString() {
-		String res = "Navire("+this.debut.toString()+", "longueur+", ";
-		res += this.estVertical ? ""
+		String axe;
+		int longueur;
+		if (!estVertical()) {
+			axe = "horizontal";
+			longueur = fin.getColonne() - debut.getColonne();
+		} else {
+			axe = "vertical";
+			longueur = fin.getLigne() - debut.getLigne();
+		}
+		return "Navire(" + debut.toString() + ", " + longueur + " ," + axe + " )";
+	}
+
+	private boolean estVertical() {
+		// methode outil
+		return (debut.getColonne() == fin.getColonne());
+
+	}
+
+	private int longueur() {
+		// methode outil
+		if (this.estVertical())
+			return this.fin.getLigne() - this.debut.getLigne();
+		else
+			return this.fin.getColonne() - this.debut.getColonne();
+	}
+
+	public Coordonnee getDebut() {
+		return debut;
+	}
+
+	public Coordonnee getFin() {
+		return fin;
+	}
+
+	public boolean contient(Coordonnee c) {
+		if (c.getLigne() >= debut.getLigne() && c.getLigne() <= fin.getLigne())
+			if (c.getColonne() >= debut.getColonne() && c.getColonne() <= fin.getColonne())
+				return true;
+		return false;
+	}
+
+	public boolean touche(Navire n) {
+		return 
+		(((n.debut.getLigne() <= this.debut.getLigne() && n.fin.getLigne() >= this.debut.getLigne())
+		||(this.debut.getLigne() <= n.debut.getLigne() && this.fin.getLigne()>= n.debut.getLigne()))
+		&&
+		(n.debut.getColonne()==this.fin.getColonne()+1||this.debut.getColonne()==n.fin.getColonne()+1))
+		||
+		(((n.debut.getColonne() <= this.debut.getColonne() && n.fin.getColonne() >= this.debut.getColonne() )
+		||(this.debut.getColonne() <= n.debut.getColonne() && this.fin.getColonne()>= n.debut.getColonne()))
+		&&
+		(n.debut.getLigne()==this.fin.getLigne()+1||this.debut.getLigne()==n.fin.getLigne()+1));
+	}
+
+	public boolean chevauche(Navire n) {
+		return 
+				(((n.debut.getLigne() <= this.debut.getLigne() && n.fin.getLigne() >= this.debut.getLigne())
+				||(this.debut.getLigne() <= n.debut.getLigne() && this.fin.getLigne()>= n.debut.getLigne()))
+				&&
+				(n.debut.getColonne() == this.debut.getColonne()))
+				||
+				(((n.debut.getColonne() <= this.debut.getColonne() && n.fin.getColonne() >= this.debut.getColonne())
+				||(this.debut.getColonne() <= n.debut.getColonne() && this.fin.getColonne()>= n.debut.getColonne()))
+				&&
+				(n.debut.getLigne() == this.debut.getLigne()));	
+	}
+
+	public boolean recoitTir(Coordonnee c) {
+		if (this.contient(c)) {
+			partiesTouchees[this.nbTouchees] = c;
+			this.nbTouchees += 1;
+			return true;
+		}
+		return false;
+	}
+
+	public boolean estTouche(Coordonnee c) {
+		for (int i = 0; i < this.nbTouchees; i++) {
+			if (partiesTouchees[i].equals(c))
+				return true;
+		}
+		return false;
+	}
+
+	public boolean estTouche() {
+		return this.nbTouchees > 0;
+	}
+
+	public boolean estCoule() {
+		return this.nbTouchees == this.partiesTouchees.length;
 	}
 }
