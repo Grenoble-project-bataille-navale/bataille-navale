@@ -8,8 +8,8 @@ public class Navire {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Navire test = new Navire(new Coordonnee(0, 0), 5, true);
-		Navire test2 = new Navire(new Coordonnee(2, 0), 2, false);
+		Navire test = new Navire(new Coordonnee(0, 1), 5, true);
+		Navire test2 = new Navire(new Coordonnee(1, 0), 3, false);
 		System.out.println(test);
 		System.out.println(test2);
 		Coordonnee a = new Coordonnee("B2");
@@ -82,12 +82,10 @@ public class Navire {
 	public boolean chevauche(Navire n) {
 		return ((n.debut.getLigne() <= this.debut.getLigne() && n.fin.getLigne() >= this.debut.getLigne())
 				|| (this.debut.getLigne() <= n.debut.getLigne() && this.fin.getLigne() >= n.debut.getLigne()))
-//				&& (n.debut.getColonne() == this.debut.getColonne()))
 				&&
 				 ((n.debut.getColonne() <= this.debut.getColonne() && n.fin.getColonne() >= this.debut.getColonne())
 						|| (this.debut.getColonne() <= n.debut.getColonne()
 								&& this.fin.getColonne() >= n.debut.getColonne()));
-//						&& (n.debut.getLigne() == this.debut.getLigne()));
 	}
 
 	public boolean recoitTir(Coordonnee c) {
