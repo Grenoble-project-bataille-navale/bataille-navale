@@ -104,7 +104,6 @@ public class GrilleNavale {
 			while(!place) {
 				System.out.println(place);
 				boolean[] estVerticale = {true, false};
-				
 				int indice = (int) (Math.random()*2);
 				System.out.println(indice);
 				int ligneAlea = (int) (Math.random() * taille);
@@ -150,7 +149,7 @@ public class GrilleNavale {
 		return true;
 	}
 	public boolean recoitTir(Coordonnee c) {
-		if (!(ajouteDansTirsRecus(c))) return false;
+		if ( c==null || !(ajouteDansTirsRecus(c))) return false;
 		for (int i = 0; i< navires.length; i++) {
 			if (navires[i].recoitTir(c)) return true;
 		}
@@ -185,7 +184,7 @@ public class GrilleNavale {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] tailleNavires = {2,3,5};
-		GrilleNavale g = new GrilleNavale(10,tailleNavires);
+		GrilleNavale g = new GrilleNavale(20,tailleNavires);
 		System.out.println(g);
 
 	}
