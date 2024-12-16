@@ -107,6 +107,7 @@ public class GrilleNavale {
 			if (taillesNavires[i] > taille)
 				throw new IllegalArgumentException("Un bateau est plus grand que la grille");
 			boolean place = false;
+			taillesNavires = sortTaillesNavires(taillesNavires);
 			while (!place) {
 
 				boolean[] estVerticale = { true, false };
@@ -123,6 +124,19 @@ public class GrilleNavale {
 			}
 		}
 
+	}
+	private int[] sortTaillesNavires(int[] taillesNavires) {
+		for (int i=0; i< taillesNavires.length-1; i++) {
+			for (int j=i; j<taillesNavires.length-i-1; j++) {
+				if(taillesNavires[j]<taillesNavires[j+1]) {
+					int temp = taillesNavires[j];
+					taillesNavires[j+1] = taillesNavires[j];
+					taillesNavires[j] = temp;
+				}
+			}
+		}
+		
+		return taillesNavires;
 	}
 
 	private boolean estDansGrille(Coordonnee c) {
@@ -192,7 +206,7 @@ public class GrilleNavale {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] tailleNavires = { 15, 15, 2, 3, 5, 4, 3, 1, 5};
+		int[] tailleNavires = { 7, 10, 4, 1, 5, 6, 3, 8, 2};
 		GrilleNavale g = new GrilleNavale(26, tailleNavires);
 		Coordonnee a = new Coordonnee(1, 2);
 		while (!g.estTouche(a)) {
