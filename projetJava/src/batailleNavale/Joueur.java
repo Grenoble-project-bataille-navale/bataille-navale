@@ -9,17 +9,32 @@ public abstract class Joueur {
 	private int tailleGrille;
 	private String nom;
 
-public Joueur(int tailleGrille, String nom) {}
+public Joueur(int tailleGrille, String nom) {
+	if (tailleGrille <= 2)
+		throw new IllegalArgumentException("Taille trop petite");
+	if (nom == null) throw new IllegalArgumentException("Il faut le nom du joueur");
+	this.tailleGrille = tailleGrille;
+	this.nom = nom;
+}
 
-public Joueur(int tailleGrille) {}
+public Joueur(int tailleGrille) {
+	if (tailleGrille <= 2)
+		throw new IllegalArgumentException("Taille trop petite");
+	this.tailleGrille = tailleGrille;
+	this.nom = "Joueur 1";
+}
 
-public int getTailleGrille() {}
+public int getTailleGrille() {
+	return tailleGrille;
+}
 
-public String getNom() {}
+public String getNom() {
+	return nom;
+}
 
 public void jouerAvec(Joueur j) {
-
-deroulementJeu(this, j);
+	adversaire =j;
+	deroulementJeu(this, j);
 }
 
 	private static void deroulementJeu(Joueur attaquant, Joueur defenseur) {
