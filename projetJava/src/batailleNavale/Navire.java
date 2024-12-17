@@ -15,11 +15,14 @@ public class Navire {
 		Coordonnee a = new Coordonnee("B2");
 		System.out.println(test.contient(a));
 		System.out.println(test.chevauche(test2));
+		System.out.println(test.recoitTir(a));
+		System.out.println(test.recoitTir(a));
+		System.out.println(test.nbTouchees);
 	}
 
 	public Navire(Coordonnee debut, int longueur, boolean estVertical) {
 		if (longueur < 1)
-			throw new IllegalArgumentException("La longueur d'un bateau ne peut pas être négative ou nul :"+longueur);
+			throw new IllegalArgumentException("La longueur d'un bateau ne peut pas être négative ou nul :" + longueur);
 		this.debut = debut;
 		this.partiesTouchees = new Coordonnee[longueur];
 		this.nbTouchees = 0;
@@ -82,16 +85,19 @@ public class Navire {
 	public boolean chevauche(Navire n) {
 		return ((n.debut.getLigne() <= this.debut.getLigne() && n.fin.getLigne() >= this.debut.getLigne())
 				|| (this.debut.getLigne() <= n.debut.getLigne() && this.fin.getLigne() >= n.debut.getLigne()))
-				&&
-				 ((n.debut.getColonne() <= this.debut.getColonne() && n.fin.getColonne() >= this.debut.getColonne())
+				&& ((n.debut.getColonne() <= this.debut.getColonne() && n.fin.getColonne() >= this.debut.getColonne())
 						|| (this.debut.getColonne() <= n.debut.getColonne()
 								&& this.fin.getColonne() >= n.debut.getColonne()));
 	}
 
 	public boolean recoitTir(Coordonnee c) {
+		// On peut tirer sur une partie déjà touché cela renverra True mais
+		// n'incrémentera pas le compteur
 		if (this.contient(c)) {
-			partiesTouchees[this.nbTouchees] = c;
-			this.nbTouchees += 1;
+			if (!estTouche(c)) {
+				partiesTouchees[this.nbTouchees] = c;
+				this.nbTouchees += 1;
+			}
 			return true;
 		}
 		return false;

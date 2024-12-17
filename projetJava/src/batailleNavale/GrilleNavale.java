@@ -109,7 +109,7 @@ public class GrilleNavale {
 			if (taillesNavires[i] > taille)
 				throw new IllegalArgumentException("Un bateau est plus grand que la grille");
 			boolean place = false;
-			taillesNavires = sortTaillesNavires(taillesNavires);
+//			taillesNavires = sortTaillesNavires(taillesNavires);
 			while (!place) {
 
 				boolean[] estVerticale = { true, false };
@@ -157,7 +157,9 @@ public class GrilleNavale {
 	}
 
 	private boolean ajouteDansTirsRecus(Coordonnee c) {
-		if (c == null && !estDansTirsRecus(c))
+		if ( c == null)
+			throw new IllegalArgumentException("coordonnee nulle");
+		if (estDansTirsRecus(c))
 			return false;
 		if (nbTirsRecus >= tirsRecus.length) {
 			throw new ArrayIndexOutOfBoundsException("Le tableau des tirs reçus est plein.");
@@ -188,7 +190,7 @@ public class GrilleNavale {
 	}
 
 	public boolean estALeau(Coordonnee c) {
-		return estDansTirsRecus(c) && estTouche(c);
+		return estDansTirsRecus(c) && !estTouche(c);
 	}
 
 	public boolean estCoule(Coordonnee c) {
@@ -209,17 +211,16 @@ public class GrilleNavale {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] tailleNavires = { 7, 10, 4, 1, 5, 6, 3, 8, 2};
+		int[] tailleNavires = { 7, 10, 4, 24, 5, 6, 3, 8, 2};
 		GrilleNavale g = new GrilleNavale(26, tailleNavires);
 		Coordonnee a = new Coordonnee(1, 2);
-		while (!g.estTouche(a)) {
-			int i = (int) (Math.random() * (g.taille));
-			int j = (int) (Math.random() * (g.taille));
-			System.out.println(g.taille);
-			a = new Coordonnee(i, j);
-			g.recoitTir(a);
-			g.ajouteDansTirsRecus(a);
-		}
+//		while (!g.estTouche(a)) {
+//			int i = (int) (Math.random() * (g.taille));
+//			int j = (int) (Math.random() * (g.taille));
+//			a = new Coordonnee(i, j);
+//			g.recoitTir(a);
+//			g.ajouteDansTirsRecus(a);
+//		}
 		System.out.println(g);
 
 	}
