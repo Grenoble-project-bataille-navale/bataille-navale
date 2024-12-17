@@ -21,11 +21,11 @@ public class JoueurTexte extends JoueurAvecGrille {
 		if ( etat == GAMEOVER )
 			System.out.println("Vous avez touché votre adversaire en "+c+" et coulé toute sa flotte c'est une victoire!");
 		else if ( etat == TOUCHE)
-			System.out.println("Vous avez touché votre adversaire en "+c);
+			System.out.println("Vous avez touché un navire adverse en "+c);
 		else if ( etat == COULE)
-			System.out.println("Vous avez touché votre adversaire et coulé un bateau en" +c);
+			System.out.println("Vous avez touché votre adversaire et coulé un bateau en " +c);
 		else if ( etat == A_L_EAU)
-		System.out.println("Vous avez visé dans l'eau :"+c);
+		System.out.println("Vous avez visé dans l'eau en: "+c);
 		
 
 	}
@@ -36,12 +36,11 @@ public class JoueurTexte extends JoueurAvecGrille {
 		if ( etat == GAMEOVER )
 			System.out.println("Votre adversaire a coulé votre dernier bateau vous avez perdu");
 		else if ( etat == TOUCHE)
-			System.out.println("Votre adversaire vous a touché en : "+c);
+			System.out.println("Votre adversaire  a touché votre navire en : "+c);
 		else if ( etat == COULE)
-			System.out.println("Votre adversaire a coulé un de vos navires en :" +c);
+			System.out.println("Votre adversaire a coulé un de vos navires en : " +c);
 		else if ( etat == A_L_EAU)
-		System.out.println("Voici votre grille :");
-		System.out.println(this.grille);
+			System.out.println("Votre adversaire a tiré dans l'eau en :" +c);
 	}
 	
 
