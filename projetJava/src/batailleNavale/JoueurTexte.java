@@ -46,9 +46,15 @@ public class JoueurTexte extends JoueurAvecGrille {
 
 	public Coordonnee choixAttaque() {
 		sc = new Scanner(System.in);
-		System.out.println( this.getNom()+"entrez la case que vous souhaitez viser : ");
+		System.out.println( this.getNom()+" entrez la case que vous souhaitez viser : ");
 		String coordonnee = sc.nextLine();
-		return new Coordonnee(coordonnee);
+		Coordonnee res = new Coordonnee(coordonnee);
+		while (res.getLigne() > this.getTailleGrille() - 1 || res.getColonne() > this.getTailleGrille() - 1) {
+			System.out.println("Coordonnee hors du cadre recommencez : ");
+			coordonnee = sc.nextLine();
+			res = new Coordonnee(coordonnee);
+		}
+		return res;
 	}
 
 	public static void main(String[] args) {
