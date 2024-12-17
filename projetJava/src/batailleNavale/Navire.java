@@ -8,16 +8,15 @@ public class Navire {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Navire test = new Navire(new Coordonnee(0, 1), 5, true);
+		Navire test = new Navire(new Coordonnee(0, 1), 2, true);
 		Navire test2 = new Navire(new Coordonnee(1, 0), 3, false);
 		System.out.println(test);
 		System.out.println(test2);
-		Coordonnee a = new Coordonnee("B2");
-		System.out.println(test.contient(a));
-		System.out.println(test.chevauche(test2));
-		System.out.println(test.recoitTir(a));
-		System.out.println(test.recoitTir(a));
-		System.out.println(test.nbTouchees);
+		Coordonnee a = new Coordonnee("B1");
+		Coordonnee b = new Coordonnee("B2");
+		test.recoitTir(a);
+	
+		System.out.println(test.estCoule());
 	}
 
 	public Navire(Coordonnee debut, int longueur, boolean estVertical) {

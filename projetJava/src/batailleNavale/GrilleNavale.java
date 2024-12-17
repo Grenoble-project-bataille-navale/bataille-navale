@@ -105,11 +105,11 @@ public class GrilleNavale {
 	}
 
 	public void placementAuto(int[] taillesNavires) {
+		taillesNavires = sortTaillesNavires(taillesNavires);
 		for (int i = 0; i < taillesNavires.length; i++) {
 			if (taillesNavires[i] > taille)
 				throw new IllegalArgumentException("Un bateau est plus grand que la grille");
 			boolean place = false;
-//			taillesNavires = sortTaillesNavires(taillesNavires);
 			while (!place) {
 
 				boolean[] estVerticale = { true, false };
@@ -130,9 +130,9 @@ public class GrilleNavale {
 	private int[] sortTaillesNavires(int[] taillesNavires) {
 		//Méthode outil de trie car ranger les bateaux du plus grand au plus petit est plus rapide
 		for (int i=0; i< taillesNavires.length-1; i++) {
-			for (int j=i; j<taillesNavires.length-i-1; j++) {
+			for (int j=0; j<taillesNavires.length-i-1; j++) {
 				if(taillesNavires[j]<taillesNavires[j+1]) {
-					int temp = taillesNavires[j];
+					int temp = taillesNavires[j+1];
 					taillesNavires[j+1] = taillesNavires[j];
 					taillesNavires[j] = temp;
 				}
@@ -211,16 +211,17 @@ public class GrilleNavale {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] tailleNavires = { 7, 10, 4, 24, 5, 6, 3, 8, 2};
-		GrilleNavale g = new GrilleNavale(26, tailleNavires);
+		int[] tailleNavires = { 3,3,3};
+		GrilleNavale g = new GrilleNavale(10, tailleNavires);
 		Coordonnee a = new Coordonnee(1, 2);
-//		while (!g.estTouche(a)) {
-//			int i = (int) (Math.random() * (g.taille));
-//			int j = (int) (Math.random() * (g.taille));
-//			a = new Coordonnee(i, j);
-//			g.recoitTir(a);
-//			g.ajouteDansTirsRecus(a);
-//		}
+		while (!g.estCoule(a)) {
+			int i = (int) (Math.random() * (g.taille/2));
+		int j = (int) (Math.random() * (g.taille/2));
+		System.out.println("a");
+			a = new Coordonnee(i, j);
+			g.recoitTir(a);
+			g.ajouteDansTirsRecus(a);
+	}
 		System.out.println(g);
 
 	}
