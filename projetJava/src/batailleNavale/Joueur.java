@@ -33,7 +33,7 @@ public String getNom() {
 }
 
 public void jouerAvec(Joueur j) {
-	if (tailleGrille != j.tailleGrille
+	if (tailleGrille != j.tailleGrille)
 		throw new IllegalArgumentException("Les deux tailles ne peuvent pas etres differentes.");
 	adversaire =j;
 	j.adversaire=this;
