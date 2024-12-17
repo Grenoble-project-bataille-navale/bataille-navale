@@ -26,6 +26,7 @@ public class JoueurTexte extends JoueurAvecGrille {
 			System.out.println("Vous avez touché votre adversaire et coulé un bateau en" +c);
 		else if ( etat == A_L_EAU)
 		System.out.println("Vous avez visé dans l'eau :"+c);
+		
 
 	}
 
@@ -39,7 +40,8 @@ public class JoueurTexte extends JoueurAvecGrille {
 		else if ( etat == COULE)
 			System.out.println("Votre adversaire a coulé un de vos navires en :" +c);
 		else if ( etat == A_L_EAU)
-		System.out.println("Votre adversaire a tiré en :"+c);
+		System.out.println("Voici votre grille :");
+		System.out.println(this.grille);
 	}
 	
 
