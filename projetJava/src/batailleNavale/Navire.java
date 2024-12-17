@@ -19,7 +19,7 @@ public class Navire {
 
 	public Navire(Coordonnee debut, int longueur, boolean estVertical) {
 		if (longueur < 1)
-			throw new IllegalArgumentException("La longueur d'un bateau ne peut pas être négative ou nul");
+			throw new IllegalArgumentException("La longueur d'un bateau ne peut pas être négative ou nul :"+longueur);
 		this.debut = debut;
 		this.partiesTouchees = new Coordonnee[longueur];
 		this.nbTouchees = 0;

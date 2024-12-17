@@ -4,7 +4,7 @@ public class GrilleNavale {
 	private Navire[] navires;
 	private int nbNavires;
 	private int taille;
-	private Coordonnee[] tirsRecu;
+	private Coordonnee[] tirsRecus;
 	private int nbTirsRecus;
 
 	public GrilleNavale(int taille, int[] taillesNavires) {
@@ -15,7 +15,7 @@ public class GrilleNavale {
 
 		this.taille = taille;
 		this.navires = new Navire[taillesNavires.length];
-		this.tirsRecu = new Coordonnee[taille * taille];
+		this.tirsRecus = new Coordonnee[taille * taille];
 		this.nbTirsRecus = 0;
 		this.nbNavires = 0;
 		this.placementAuto(taillesNavires);
@@ -28,13 +28,15 @@ public class GrilleNavale {
 		this.taille = taille;
 		this.nbNavires = nbNavires;
 		this.navires = new Navire[nbNavires];
-		this.tirsRecu = new Coordonnee[taille * taille];
+		this.tirsRecus = new Coordonnee[taille * taille];
 	}
 
 	public String toString() {
 		StringBuffer sb = new StringBuffer("");
 		sb.append(initLettres());
 		for (int i = 0; i < taille; i++) {
+			if (i < 9)
+				sb.append(' ');
 			sb.append(i + 1);
 			sb.append(' ');
 			for (int j = 0; j < taille; j++) {
@@ -60,7 +62,7 @@ public class GrilleNavale {
 
 	private String initLettres() {
 		// methode outil pour le ToString
-		StringBuffer sb = new StringBuffer(" ");
+		StringBuffer sb = new StringBuffer("   ");
 		for (int i = 0; i < taille; i++) {
 			sb.append((char) ('A' + i));
 			sb.append(' ');
@@ -126,6 +128,7 @@ public class GrilleNavale {
 
 	}
 	private int[] sortTaillesNavires(int[] taillesNavires) {
+		//Méthode outil de trie car ranger les bateaux du plus grand au plus petit est plus rapide
 		for (int i=0; i< taillesNavires.length-1; i++) {
 			for (int j=i; j<taillesNavires.length-i-1; j++) {
 				if(taillesNavires[j]<taillesNavires[j+1]) {
@@ -147,7 +150,7 @@ public class GrilleNavale {
 		if (c == null || !this.estDansGrille(c))
 			return false;
 		for (int i = 0; i < nbTirsRecus; i++) {
-			if (tirsRecu[i].equals(c))
+			if (tirsRecus[i].equals(c))
 				return true;
 		}
 		return false;
@@ -156,10 +159,10 @@ public class GrilleNavale {
 	private boolean ajouteDansTirsRecus(Coordonnee c) {
 		if (c == null && !estDansTirsRecus(c))
 			return false;
-		if (nbTirsRecus >= tirsRecu.length) {
+		if (nbTirsRecus >= tirsRecus.length) {
 			throw new ArrayIndexOutOfBoundsException("Le tableau des tirs reçus est plein.");
 		}
-		tirsRecu[nbTirsRecus] = c;
+		tirsRecus[nbTirsRecus] = c;
 		nbTirsRecus++;
 
 		return true;

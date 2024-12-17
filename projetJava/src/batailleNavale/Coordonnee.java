@@ -11,8 +11,8 @@ public class Coordonnee {
 
 	public Coordonnee(int ligne, int colonne) {
 		if (ligne < 0 || ligne >= 26 || colonne < 0 || colonne >= 26) {
-			throw new IllegalArgumentException("nombre de ligne/colonne non autorisé");
-		}
+			throw new IllegalArgumentException("numero de ligne/colonne non autorisé :"+ ligne + " "+ colonne);
+		} 
 		this.ligne = ligne;
 		this.colonne = colonne;
 	}
@@ -51,6 +51,7 @@ public class Coordonnee {
 			return false;
 		if (!(obj instanceof Coordonnee))
 			return false;
+		//Est-ce vraiment nécessaire ?
 
 		Coordonnee other = (Coordonnee) obj;
 		return this.ligne == other.ligne && this.colonne == other.colonne;
