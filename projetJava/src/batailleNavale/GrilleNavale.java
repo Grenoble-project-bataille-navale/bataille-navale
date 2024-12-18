@@ -26,8 +26,8 @@ public class GrilleNavale {
 		if (nbNavires > taille)
 			throw new IllegalArgumentException("Erreur Arguments");
 		this.taille = taille;
-		this.nbNavires = nbNavires;
 		this.navires = new Navire[nbNavires];
+		this.nbNavires = 0;
 		this.tirsRecus = new Coordonnee[taille * taille];
 	}
 
@@ -87,9 +87,8 @@ public class GrilleNavale {
 		return this.taille;
 	}
 
-	public boolean ajouterNavire(Navire n) {
-
-		if (this.nbNavires >= this.navires.length)
+	public boolean ajouteNavire(Navire n) {
+		if (this.nbNavires > this.navires.length)
 			return false;
 		for (int i = 0; i < this.nbNavires; i++) {
 			if (navires[i].touche(n))
@@ -111,7 +110,7 @@ public class GrilleNavale {
 				throw new IllegalArgumentException("Un bateau est plus grand que la grille");
 			boolean place = false;
 			while (!place) {
-
+				System.out.println("oui");
 				boolean[] estVerticale = { true, false };
 				int indice = (int) (Math.random() * 2);
 				boolean estVertical = estVerticale[indice];
@@ -120,8 +119,9 @@ public class GrilleNavale {
 				Coordonnee c = new Coordonnee(ligneAlea, colonneAlea);
 				Navire n = new Navire(c, taillesNavires[i], estVertical);
 
-				if (ajouterNavire(n)) {
+				if (ajouteNavire(n)) {
 					place = true;
+					System.out.println("oui");
 				}
 			}
 		}
