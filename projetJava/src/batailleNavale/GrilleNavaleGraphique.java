@@ -12,8 +12,21 @@ public class GrilleNavaleGraphique  extends GrilleNavale {
 		return grille;
 	}
 	public boolean ajouteNavire(Navire n) {
+		if(super.ajouterNavire(n)) {
+			if ( n.getDebut().getLigne() == n.getFin().getLigne() ) {
+				// On colorie à l'horizontale
+				for ( int i = n.getDebut().getColonne() ; i < n.getFin().getColonne() ; i++ )
+					this.grille.colorie(new Coordonnee(n.getDebut().getLigne(), i), Color.GREEN);
+			}
+			else {
+				//On colorie à la verticale
+				for ( int i = n.getDebut().getLigne() ; i < n.getFin().getLigne() ; i++ )
+					this.grille.colorie(new Coordonnee(i, n.getDebut().getColonne()), Color.GREEN);
+			}
+		}
 		return false;
 	}
+	
 	public boolean recoitTir(Coordonnee c) {
 		 boolean tir = super.recoitTir(c);
 		 if (tir) {
