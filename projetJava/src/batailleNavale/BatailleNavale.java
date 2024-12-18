@@ -3,8 +3,6 @@ package batailleNavale;
 import javax.swing.*;
 import java.awt.*;
 
-
-
 public class BatailleNavale {
     private Joueur joueur1, joueur2;
     private int tailleGrille;
@@ -15,58 +13,70 @@ public class BatailleNavale {
  public BatailleNavale() {
 
     // la fenêtre principale
-    
+	Color couleurPolice = Color.LIGHT_GRAY;
     frame = new JFrame("Bataille Navale");
-    frame.setSize(400, 300);
+    frame.setSize(600, 400);
+    Font myFont1 = new Font("Arial", Font.BOLD, 18);
+    frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setLayout(new GridLayout(6, 2));
-
+    Panel conteneur = new Panel();
+    conteneur.setFont(myFont1);
+    conteneur.setLayout(new GridLayout(6, 2));
+    conteneur.setBackground(Color.RED);
+    
+  
+    frame.add(conteneur);
 
 // la taille de la grille
-
-    JTextField tailleField = new JTextField("10");
-    JLabel tailleLabel = new JLabel("Taille de la grille :");
+    JTextField tailleField = new JTextField("10", SwingConstants.CENTER);
+    tailleField.setHorizontalAlignment(JTextField.CENTER);
+    JLabel tailleLabel = new JLabel("Taille de la grille :", SwingConstants.CENTER);
+    tailleLabel.setFont(myFont1);
+    tailleLabel.setForeground(couleurPolice);
+    
+ 
 
 
 // les champs du joueur 1
-   
-   
-    JLabel joueur1Label = new JLabel("Nom Joueur 1 :");
-    JLabel typeJoueur1Label = new JLabel("Type Joueur 1 :");
+    JLabel joueur1Label = new JLabel("Nom Joueur 1 :", SwingConstants.CENTER);
+    joueur1Label.setForeground(couleurPolice);
+    JLabel typeJoueur1Label = new JLabel("Type Joueur 1 :", SwingConstants.CENTER);
+    typeJoueur1Label.setForeground(couleurPolice);
     JTextField nomJoueur1Field = new JTextField("Joueur 1");
+    nomJoueur1Field.setHorizontalAlignment(JTextField.CENTER);
     JComboBox<String> typeJoueur1 = new JComboBox<>(new String[]{"Joueur Graphique", "Joueur Texte", "IA facile", "IA Moyenne"});
-
+    //typeJoueur1.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
+    ((JLabel)typeJoueur1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 
 
 // les champs du joueur 2
-
-    
-    JLabel joueur2Label = new JLabel("Nom Joueur 2 :");
-    JLabel typeJoueur2Label = new JLabel("Type Joueur 2 :");
+    JLabel joueur2Label = new JLabel("Nom Joueur 2 :",SwingConstants.CENTER);
+    joueur2Label.setForeground(couleurPolice);
+    JLabel typeJoueur2Label = new JLabel("Type Joueur 2 :",SwingConstants.CENTER);
+    typeJoueur2Label.setForeground(couleurPolice);
     JTextField nomJoueur2Field = new JTextField("Joueur 2");
+    nomJoueur2Field.setHorizontalAlignment(JTextField.CENTER);
     JComboBox<String> typeJoueur2 = new JComboBox<>(new String[]{"Joueur Graphique", "Joueur Texte", "IA facile", "IA Moyenne"});
+    ((JLabel)typeJoueur2.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 
 
 // Le bouton lancer
-
-
     JButton boutonLancer = new JButton("Lancer partie");
 
-
-
 // Les composants de la fenêtre
-    frame.add(tailleLabel);
-        frame.add(tailleField);
-        frame.add(joueur1Label);
-        frame.add(nomJoueur1Field);
-        frame.add(typeJoueur1Label);
-        frame.add(typeJoueur1);
-        frame.add(joueur2Label);
-        frame.add(nomJoueur2Field);
-        frame.add(typeJoueur2Label);
-        frame.add(typeJoueur2);
-        frame.add(new JLabel()); 
-        frame.add(boutonLancer);
+   conteneur.add(tailleLabel);
+   conteneur.add(tailleLabel);
+   conteneur.add(tailleField);
+   conteneur.add(joueur1Label);
+   conteneur.add(nomJoueur1Field);
+   conteneur.add(typeJoueur1Label);
+   conteneur.add(typeJoueur1);
+   conteneur.add(joueur2Label);
+   conteneur.add(nomJoueur2Field);
+   conteneur.add(typeJoueur2Label);
+   conteneur.add(typeJoueur2);
+   conteneur.add(new JLabel()); 
+   conteneur.add(boutonLancer);
     
     
     frame.setVisible(true);
@@ -74,8 +84,6 @@ public class BatailleNavale {
 
 
 // action bouton
-
-
     boutonLancer.addActionListener(e -> {
         try {
         tailleGrille = Integer.parseInt(tailleField.getText());
@@ -91,8 +99,6 @@ public class BatailleNavale {
 
 
 // création joueur selon type
-
-
  private Joueur creerJoueur(String nom, String type, int taille){
     GrilleNavaleGraphique grilleDefense = new GrilleNavaleGraphique(taille);
     if (type.equals("Joueur Graphique")){
@@ -105,7 +111,7 @@ public class BatailleNavale {
         return new JoueurAutoNiveau1(grilleDefense, nom);
     }
     else {
-        return new JoueurAutoNiveau2(grilleDefense, nom);
+        return new JoueurAutoNiveau3(grilleDefense, nom);
 
     }
  }
@@ -119,6 +125,7 @@ public class BatailleNavale {
 
  public static void main(String[] args){
     new BatailleNavale();
+    
  }
 
 
