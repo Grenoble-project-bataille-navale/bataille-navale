@@ -1,7 +1,7 @@
 package batailleNavale;
 
 public abstract class JoueurAvecGrille extends Joueur {
-	private GrilleNavale grille;
+	protected GrilleNavale grille;
 
 	public JoueurAvecGrille(GrilleNavale g, String nom) {
 		super(g.getTaille(), nom);
@@ -28,7 +28,7 @@ public abstract class JoueurAvecGrille extends Joueur {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		GrilleNavaleGraphique a = new GrilleNavaleGraphique(10);
 	}
 
 }
