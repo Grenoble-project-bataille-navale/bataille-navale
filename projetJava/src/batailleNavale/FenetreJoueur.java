@@ -30,6 +30,8 @@ public class FenetreJoueur extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.grilleTirs = new GrilleGraphique(taille);
 		this.grilleDefense = new GrilleNavaleGraphique(taille);
+		this.grilleDefense.getGrilleGraphique().setClicActive(false);
+		this.grilleTirs.setClicActive(true);
 		setContentPane(contentPane);
 		this.setTitle(nom);
 		contentPane.setLayout(new GridLayout(0, 2, 0, 0));

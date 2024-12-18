@@ -23,6 +23,7 @@ public class JoueurAutoNiveau2 extends JoueurAuto {
 	protected void retourAttaque(Coordonnee c, int etat) {
 		courante = c;
 		etatCourant = etat;
+		System.out.println(etatCourant);
 		if (etat == TOUCHE && !navireAdetruire) {
 			navireAdetruire = true;
 			premiereNavire = new Coordonnee(c.getLigne(), c.getColonne());
@@ -114,7 +115,7 @@ public class JoueurAutoNiveau2 extends JoueurAuto {
 	public Coordonnee choixSuivant(char c) {
 		if (c == 'n') {
 			if (toutEnHaut(courante) || etatCourant == A_L_EAU
-					|| dejaTire[premiereNavire.getLigne() - 1][premiereNavire.getColonne()] == 1) {
+					|| dejaTire[courante.getLigne() - 1][courante.getColonne()] == 1) {
 				sens = 's';
 				return sud(premiereNavire);
 			} else {
@@ -122,7 +123,7 @@ public class JoueurAutoNiveau2 extends JoueurAuto {
 			}
 		} else if (c == 's') {
 			if (toutEnBas(courante) || etatCourant == A_L_EAU
-					|| dejaTire[premiereNavire.getLigne() + 1][premiereNavire.getColonne()] == 1) {
+					|| dejaTire[courante.getLigne() + 1][courante.getColonne()] == 1) {
 				sens = 'n';
 				return nord(premiereNavire);
 			} else {
@@ -130,7 +131,7 @@ public class JoueurAutoNiveau2 extends JoueurAuto {
 			}
 		} else if (c == 'o') {
 			if (toutAgauche(courante) || etatCourant == A_L_EAU
-					|| dejaTire[premiereNavire.getLigne()][premiereNavire.getColonne() - 1] == 1) {
+					|| dejaTire[courante.getLigne()][courante.getColonne() - 1] == 1) {
 				sens = 'e';
 				return est(premiereNavire);
 			} else {
@@ -138,7 +139,7 @@ public class JoueurAutoNiveau2 extends JoueurAuto {
 			}
 		} else {
 			if (toutAdroite(courante) || etatCourant == A_L_EAU
-					|| dejaTire[premiereNavire.getLigne()][premiereNavire.getColonne() + 1] == 1) {
+					|| dejaTire[courante.getLigne()][courante.getColonne() + 1] == 1) {
 				sens = 'o';
 				return ouest(premiereNavire);
 			} else {
