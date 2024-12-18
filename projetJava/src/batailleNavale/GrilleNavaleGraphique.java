@@ -3,16 +3,20 @@ package batailleNavale;
 import java.awt.Color;
 
 public class GrilleNavaleGraphique  extends GrilleNavale {
+	private static int[] taillesNavire= {5,4,3,3,2};
 	private GrilleGraphique grille;
 	public GrilleNavaleGraphique(int taille) {
-		super(taille,0);
+		
+		super(taille,taillesNavire.length);
 		this.grille =  new GrilleGraphique(taille);
+		this.placementAuto(taillesNavire);
 	}
 	public GrilleGraphique getGrilleGraphique() {
 		return grille;
 	}
 	public boolean ajouteNavire(Navire n) {
-		if(super.ajouterNavire(n)) {
+		
+		if(super.ajouteNavire(n)) {
 			if ( n.getDebut().getLigne() == n.getFin().getLigne() ) {
 				// On colorie à l'horizontale
 				for ( int i = n.getDebut().getColonne() ; i < n.getFin().getColonne() ; i++ )
@@ -23,10 +27,10 @@ public class GrilleNavaleGraphique  extends GrilleNavale {
 				for ( int i = n.getDebut().getLigne() ; i < n.getFin().getLigne() ; i++ )
 					this.grille.colorie(new Coordonnee(i, n.getDebut().getColonne()), Color.GREEN);
 			}
+			return true;
 		}
 		return false;
 	}
-	
 	public boolean recoitTir(Coordonnee c) {
 		 boolean tir = super.recoitTir(c);
 		 if (tir) {
@@ -39,4 +43,3 @@ public class GrilleNavaleGraphique  extends GrilleNavale {
 	}
 
 }
-
