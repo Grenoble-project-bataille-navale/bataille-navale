@@ -2,9 +2,10 @@ package batailleNavale;
 
 import java.awt.Color;
 
+
 import javax.swing.JOptionPane;
 
-public class JoueurGraphique extends JoueurAvecGrille {
+public class JoueurGraphique extends JoueurAvecGrille  {
 private GrilleGraphique grilleTirs;
 public JoueurGraphique(GrilleNavaleGraphique grilleDefense, GrilleGraphique grilleTirs, String nom) {
 	super( grilleDefense,nom);
@@ -16,7 +17,8 @@ public JoueurGraphique(GrilleNavaleGraphique grilleDefense,GrilleGraphique grill
 	
 }
 public Coordonnee choixAttaque() {
-	return this.choixAttaque();
+	
+	return grilleTirs.getCoordonneeSelectionnee();
 }
 protected void retourDefense(Coordonnee c, int etat) {
 	switch (etat) {
