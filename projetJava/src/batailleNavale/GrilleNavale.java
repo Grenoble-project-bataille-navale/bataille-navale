@@ -120,7 +120,7 @@ public class GrilleNavale {
 				Coordonnee c = new Coordonnee(ligneAlea, colonneAlea);
 				Navire n = new Navire(c, taillesNavires[i], estVertical);
 
-				if (ajouterNavire(n)) {
+				if (ajouteNavire(n)) {
 					place = true;
 				}
 			}
