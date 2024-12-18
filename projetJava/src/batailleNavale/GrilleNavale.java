@@ -87,7 +87,7 @@ public class GrilleNavale {
 		return this.taille;
 	}
 
-	public boolean ajouterNavire(Navire n) {
+	public boolean ajouteNavire(Navire n) {
 
 		if (this.nbNavires >= this.navires.length)
 			return false;
