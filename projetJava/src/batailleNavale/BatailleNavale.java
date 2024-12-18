@@ -34,7 +34,7 @@ public class BatailleNavale {
     JLabel joueur1Label = new JLabel("Nom Joueur 1 :");
     JLabel typeJoueur1Label = new JLabel("Type Joueur 1 :");
     JTextField nomJoueur1Field = new JTextField("Joueur 1");
-    JComboBox<String> typeJoueur1 = new JComboBox<>(new String[]{"Joueur Graphique", "Joueur Texte", "Joueur Auto"});
+    JComboBox<String> typeJoueur1 = new JComboBox<>(new String[]{"Joueur Graphique", "Joueur Texte", "IA facile", "IA Moyenne"});
 
 
 
@@ -44,7 +44,7 @@ public class BatailleNavale {
     JLabel joueur2Label = new JLabel("Nom Joueur 2 :");
     JLabel typeJoueur2Label = new JLabel("Type Joueur 2 :");
     JTextField nomJoueur2Field = new JTextField("Joueur 2");
-    JComboBox<String> typeJoueur2 = new JComboBox<>(new String[]{"Joueur Graphique", "Joueur Texte", "Joueur Auto"});
+    JComboBox<String> typeJoueur2 = new JComboBox<>(new String[]{"Joueur Graphique", "Joueur Texte", "IA facile", "IA Moyenne"});
 
 
 // Le bouton lancer
@@ -101,12 +101,12 @@ public class BatailleNavale {
         return new JoueurGraphique(fj.getGrilleDefense(), fj.getGrilleTirs(), nom);
     }else if (type.equals("Joueur Texte")){
         return new JoueurTexte(grilleDefense, nom);
-    } else {
-
+    } else if (type.equals("IA facile")){
+        return new JoueurAutoNiveau1(grilleDefense, nom);
+    }
+    else {
         return new JoueurAutoNiveau2(grilleDefense, nom);
 
-    
-    
     }
  }
 

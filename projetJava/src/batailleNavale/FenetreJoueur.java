@@ -62,7 +62,7 @@ public class FenetreJoueur extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FenetreJoueur frame = new FenetreJoueur("oui", 15);
+					FenetreJoueur frame = new FenetreJoueur("oui", 25);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

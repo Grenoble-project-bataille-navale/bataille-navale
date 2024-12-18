@@ -3,7 +3,7 @@ package batailleNavale;
 import java.awt.Color;
 
 public class GrilleNavaleGraphique  extends GrilleNavale {
-	private static int[] taillesNavire= {5,5,2,5,2};
+	private static int[] taillesNavire= {5,4,3,3,2};
 	private GrilleGraphique grille;
 	public GrilleNavaleGraphique(int taille) {
 		
