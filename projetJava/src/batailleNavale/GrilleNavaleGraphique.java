@@ -8,8 +8,11 @@ public class GrilleNavaleGraphique  extends GrilleNavale {
 	public GrilleNavaleGraphique(int taille) {
 		
 		super(taille,taillesNavire.length);
+		System.out.println("oui1");
 		this.grille =  new GrilleGraphique(taille);
+		System.out.println("oui2");
 		this.placementAuto(taillesNavire);
+		System.out.println("oui3");
 	}
 	public GrilleGraphique getGrilleGraphique() {
 		return grille;
@@ -19,12 +22,12 @@ public class GrilleNavaleGraphique  extends GrilleNavale {
 		if(super.ajouteNavire(n)) {
 			if ( n.getDebut().getLigne() == n.getFin().getLigne() ) {
 				// On colorie à l'horizontale
-				for ( int i = n.getDebut().getColonne() ; i < n.getFin().getColonne() ; i++ )
+				for ( int i = n.getDebut().getColonne() ; i <= n.getFin().getColonne() ; i++ )
 					this.grille.colorie(new Coordonnee(n.getDebut().getLigne(), i), Color.GREEN);
 			}
 			else {
 				//On colorie à la verticale
-				for ( int i = n.getDebut().getLigne() ; i < n.getFin().getLigne() ; i++ )
+				for ( int i = n.getDebut().getLigne() ; i <= n.getFin().getLigne() ; i++ )
 					this.grille.colorie(new Coordonnee(i, n.getDebut().getColonne()), Color.GREEN);
 			}
 			return true;
