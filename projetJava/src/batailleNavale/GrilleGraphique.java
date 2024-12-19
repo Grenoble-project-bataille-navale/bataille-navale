@@ -200,7 +200,7 @@ public class GrilleGraphique extends JPanel implements ActionListener {
 			gauche = ImageIO.read(getClass().getResourceAsStream("gaucheNavire.png"));
 			gauche = resize(gauche, tailleDimension, tailleDimension);
 			droite = ImageIO.read(getClass().getResourceAsStream("droiteNavire.png"));
-			droite = resize(droite, 30, 30);
+			droite = resize(droite, tailleDimension, tailleDimension);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
