@@ -17,7 +17,6 @@ public JoueurGraphique(GrilleNavaleGraphique grilleDefense,GrilleGraphique grill
 	
 }
 public Coordonnee choixAttaque() {
-	System.out.println("oui");
 	return grilleTirs.getCoordonneeSelectionnee();
 }
 protected void retourDefense(Coordonnee c, int etat) {
@@ -29,6 +28,7 @@ protected void retourDefense(Coordonnee c, int etat) {
 	case COULE:	JOptionPane.showMessageDialog(grilleTirs, "Votre navire a coulé en " + c);
 	break;
 	case GAMEOVER:				JOptionPane.showMessageDialog(grilleTirs, "Vous avez Perdu!!!");
+	
 }
 }
 	protected void retourAttaque(Coordonnee c, int etat) {

@@ -1,6 +1,15 @@
 package batailleNavale;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 
 public class GrilleNavaleGraphique  extends GrilleNavale {
 	private static int[] taillesNavire= {5,4,3,3,2};
@@ -17,16 +26,11 @@ public class GrilleNavaleGraphique  extends GrilleNavale {
 	public boolean ajouteNavire(Navire n) {
 		
 		if(super.ajouteNavire(n)) {
-			if ( n.getDebut().getLigne() == n.getFin().getLigne() ) {
-				// On colorie à l'horizontale
-				for ( int i = n.getDebut().getColonne() ; i <= n.getFin().getColonne() ; i++ )
-					this.grille.colorie(new Coordonnee(n.getDebut().getLigne(), i), Color.GREEN);
-			}
-			else {
-				//On colorie à la verticale
-				for ( int i = n.getDebut().getLigne() ; i <= n.getFin().getLigne() ; i++ )
-					this.grille.colorie(new Coordonnee(i, n.getDebut().getColonne()), Color.GREEN);
-			}
+//			this.grille.colorie(n.getDebut(), n.getFin(), Color.GREEN);
+			if (n.getDebut().getLigne() == n.getFin().getLigne())
+				this.grille.setImageNavireHorizontal(n.getDebut(), n.getFin());
+			else
+				this.grille.setImageNavireVertical(n.getDebut(), n.getFin());
 			return true;
 		}
 		return false;
@@ -43,5 +47,6 @@ public class GrilleNavaleGraphique  extends GrilleNavale {
 		 }
 		 return tir;
 	}
+ 
 
 }

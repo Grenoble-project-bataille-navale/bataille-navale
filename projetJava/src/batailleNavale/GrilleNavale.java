@@ -110,7 +110,6 @@ public class GrilleNavale {
 				throw new IllegalArgumentException("Un bateau est plus grand que la grille");
 			boolean place = false;
 			while (!place) {
-				System.out.println("oui");
 				boolean[] estVerticale = { true, false };
 				int indice = (int) (Math.random() * 2);
 				boolean estVertical = estVerticale[indice];
@@ -120,9 +119,7 @@ public class GrilleNavale {
 				Navire n = new Navire(c, taillesNavires[i], estVertical);
 
 				if (ajouteNavire(n)) {
-					place = true;
-					System.out.println("oui");
-				}
+					place = true;				}
 			}
 		}
 
@@ -209,21 +206,6 @@ public class GrilleNavale {
 		return true;
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] tailleNavires = { 3,3,3};
-		GrilleNavale g = new GrilleNavale(10, tailleNavires);
-		Coordonnee a = new Coordonnee(1, 2);
-		while (!g.estCoule(a)) {
-			int i = (int) (Math.random() * (g.taille/2));
-		int j = (int) (Math.random() * (g.taille/2));
-		System.out.println("a");
-			a = new Coordonnee(i, j);
-			g.recoitTir(a);
-			g.ajouteDansTirsRecus(a);
-	}
-		System.out.println(g);
-
-	}
+	
 
 }

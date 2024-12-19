@@ -23,10 +23,10 @@ public class JoueurAutoNiveau2 extends JoueurAuto {
 	protected void retourAttaque(Coordonnee c, int etat) {
 		courante = c;
 		etatCourant = etat;
-		System.out.println(etatCourant);
 		if (etat == TOUCHE && !navireAdetruire) {
 			navireAdetruire = true;
 			premiereNavire = new Coordonnee(c.getLigne(), c.getColonne());
+			
 
 		} else if (etat == TOUCHE && navireAdetruire && !deuxiemeTouchee) {
 			deuxiemeTouchee = true;
