@@ -40,10 +40,10 @@ public class GrilleNavaleGraphique  extends GrilleNavale {
 		
 		 if (tir) {
 			 
-			 grille.colorie(c, Color.RED);
+			 grille.setImage(c, true);
 		 } else {
 			 if ( !super.estTouche(c))
-				 grille.colorie(c, Color.BLUE);
+				 grille.setImage(c, false);
 		 }
 		 return tir;
 	}

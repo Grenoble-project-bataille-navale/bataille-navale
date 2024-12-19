@@ -32,8 +32,8 @@ protected void retourDefense(Coordonnee c, int etat) {
 }
 }
 	protected void retourAttaque(Coordonnee c, int etat) {
-			Color couleur = etat == A_L_EAU ? Color.BLUE : Color.RED;
-			grilleTirs.colorie(c, couleur);
+			boolean enFeu = etat == A_L_EAU ? false : true;
+			grilleTirs.setImage(c, enFeu);
 			switch (etat) {
 			case A_L_EAU: JOptionPane.showMessageDialog(grilleTirs, "Dans l'eau!");
 			break;

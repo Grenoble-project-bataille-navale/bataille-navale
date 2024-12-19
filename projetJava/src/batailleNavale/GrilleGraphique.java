@@ -75,7 +75,7 @@ public class GrilleGraphique extends JPanel implements ActionListener {
 				cases[i][j] = new JButtonCoordonnee(new Coordonnee(i, j));
 				this.add(cases[i][j]);
 				cases[i][j].addActionListener(this);
-				cases[i][j].setPreferredSize(new Dimension(30, 30));
+				cases[i][j].setPreferredSize(new Dimension(40, 40));
 			}
 		}
 		coordonneeSelectionnee = null;
@@ -90,6 +90,36 @@ public class GrilleGraphique extends JPanel implements ActionListener {
 	public void colorie(Coordonnee cord, Color color) {
 		cases[cord.getLigne()][cord.getColonne()].setBackground(color);
 
+	}
+	public void setImage(Coordonnee cord, boolean touche) {
+		if ( touche ) {
+			BufferedImage feu = null;
+			try {
+				feu = ImageIO.read(getClass().getResourceAsStream("feu.png"));
+				feu = resize(feu, 40, 40);
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+			}
+			ImageIcon courante = new ImageIcon(feu);
+			cases[cord.getLigne()][cord.getColonne()].setIcon(courante);
+			cases[cord.getLigne()][cord.getColonne()].setDisabledIcon(courante);
+
+		}
+		else {
+			BufferedImage eau = null;
+			try {
+				eau = ImageIO.read(getClass().getResourceAsStream("eau.png"));
+				eau = resize(eau, 40, 40);
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+			}
+			ImageIcon courante = new ImageIcon(eau);
+			cases[cord.getLigne()][cord.getColonne()].setIcon(courante);
+			cases[cord.getLigne()][cord.getColonne()].setDisabledIcon(courante);
+
+		}
 	}
 
 	/**
@@ -113,7 +143,7 @@ public class GrilleGraphique extends JPanel implements ActionListener {
 				BufferedImage bateauVertical = null;
 				try {
 					bateauVertical = ImageIO.read(getClass().getResourceAsStream("navire.png"));
-					bateauVertical = resize(bateauVertical, 30, 30);
+					bateauVertical = resize(bateauVertical, 40, 40);
 
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -129,9 +159,9 @@ public class GrilleGraphique extends JPanel implements ActionListener {
 		BufferedImage basVertical = null;
 		try {
 			hautVertical = ImageIO.read(getClass().getResourceAsStream("hautNavire.png"));
-			hautVertical = resize(hautVertical, 30, 30);
+			hautVertical = resize(hautVertical, 40, 40);
 			basVertical = ImageIO.read(getClass().getResourceAsStream("basNavire.png"));
-			basVertical = resize(basVertical, 30, 30);
+			basVertical = resize(basVertical, 40, 40);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -152,7 +182,7 @@ public class GrilleGraphique extends JPanel implements ActionListener {
 				BufferedImage bateauVertical = null;
 				try {
 					bateauVertical = ImageIO.read(getClass().getResourceAsStream("navire.png"));
-					bateauVertical = resize(bateauVertical, 30, 30);
+					bateauVertical = resize(bateauVertical, 40, 40);
 
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -168,9 +198,9 @@ public class GrilleGraphique extends JPanel implements ActionListener {
 		BufferedImage droite = null;
 		try {
 			gauche = ImageIO.read(getClass().getResourceAsStream("gaucheNavire.png"));
-			gauche = resize(gauche, 30, 30);
+			gauche = resize(gauche, 40, 40);
 			droite = ImageIO.read(getClass().getResourceAsStream("droiteNavire.png"));
-			droite = resize(droite, 30, 30);
+			droite = resize(droite, 40, 40);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

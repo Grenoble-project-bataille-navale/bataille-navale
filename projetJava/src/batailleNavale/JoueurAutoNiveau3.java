@@ -4,6 +4,7 @@ public class JoueurAutoNiveau3 extends JoueurAuto {
 	private int[][] dejaTire;
 	private  boolean[][]  attaquePrecedentes;
 	private Coordonnee derniereTouchee; 
+	private Coordonnee premiereTouchee;
 	private int directionActuelle;
 	
 	public JoueurAutoNiveau3(GrilleNavale g, String nom) {
@@ -23,14 +24,17 @@ public class JoueurAutoNiveau3 extends JoueurAuto {
 	}
 
 	protected void retourAttaque(Coordonnee c, int etat) {
-		if (etat == TOUCHE) {
-            derniereTouchee = c;
-			 System.out.println("derniereTouchee "+derniereTouchee);
-            directionActuelle = (directionActuelle == -1) ? 0 : directionActuelle;
-        } else if (etat == COULE) {
-            derniereTouchee = null;
-            directionActuelle = -1;
-        }
+	    if (etat == TOUCHE) {
+	        if (premiereTouchee == null) {
+	            premiereTouchee = c; 
+	        }
+	        derniereTouchee = c; 
+	        System.out.println("Dernière case touchée : " + derniereTouchee);
+	    } else if (etat == COULE) {
+	        premiereTouchee = null; 
+	        derniereTouchee = null;
+	        directionActuelle = -1;
+	    }
 	}
 
 	protected void retourDefense(Coordonnee c, int etat) {
@@ -61,17 +65,73 @@ public class JoueurAutoNiveau3 extends JoueurAuto {
 		return choix;
 		
 	}
-    private Coordonnee continuerAttaque() {
-        int i = derniereTouchee.getLigne();
-        int j = derniereTouchee.getColonne();
-        switch (directionActuelle) {
-            case 0: return caseValide(i - 1, j) ? new Coordonnee(i - 1, j) : null;
-            case 1: return caseValide(i + 1, j) ? new Coordonnee(i + 1, j) : null;
-            case 2: return caseValide(i, j - 1) ? new Coordonnee(i, j - 1) : null;
-            case 3: return caseValide(i, j + 1) ? new Coordonnee(i, j + 1) : null; 
-            default: return null;
-        }
-    }
+	private Coordonnee continuerAttaque() {
+	    int i = derniereTouchee.getLigne();
+	    int j = derniereTouchee.getColonne();
+
+	    if (directionActuelle != -1) {
+	        switch (directionActuelle) {
+	            case 0: 
+	                if (caseValide(i - 1, j)) {
+	                    attaquePrecedentes[i - 1][j] = true;
+	                    return new Coordonnee(i - 1, j);
+	                }
+	                break;
+	            case 1: 
+	                if (caseValide(i + 1, j)) {
+	                    attaquePrecedentes[i + 1][j] = true;
+	                    return new Coordonnee(i + 1, j);
+	                }
+	                break;
+	            case 2: 
+	                if (caseValide(i, j - 1)) {
+	                    attaquePrecedentes[i][j - 1] = true;
+	                    return new Coordonnee(i, j - 1);
+	                }
+	                break;
+	            case 3: 
+	                if (caseValide(i, j + 1)) {
+	                    attaquePrecedentes[i][j + 1] = true;
+	                    return new Coordonnee(i, j + 1);
+	                }
+	                break;
+	        }
+
+	    
+	        derniereTouchee = premiereTouchee;
+	        directionActuelle = -1; 
+	    }
+
+	   
+	    if (directionActuelle == -1) {
+	        i = premiereTouchee.getLigne();
+	        j = premiereTouchee.getColonne();
+
+	        if (caseValide(i - 1, j)) { 
+	            directionActuelle = 0;
+	            attaquePrecedentes[i - 1][j] = true;
+	            return new Coordonnee(i - 1, j);
+	        }
+	        if (caseValide(i + 1, j)) {
+	            directionActuelle = 1;
+	            attaquePrecedentes[i + 1][j] = true;
+	            return new Coordonnee(i + 1, j);
+	        }
+	        if (caseValide(i, j - 1)) { 
+	            directionActuelle = 2;
+	            attaquePrecedentes[i][j - 1] = true;
+	            return new Coordonnee(i, j - 1);
+	        }
+	        if (caseValide(i, j + 1)) { 
+	            directionActuelle = 3;
+	            attaquePrecedentes[i][j + 1] = true;
+	            return new Coordonnee(i, j + 1);
+	        }
+	    }
+
+	    return null; 
+	}
+
 	 private boolean caseValide(int i, int j) {
 	        return i >= 0 && i < this.getTailleGrille() && j >= 0 && j < this.getTailleGrille() && !attaquePrecedentes[i][j];
 	    }
