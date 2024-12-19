@@ -45,18 +45,14 @@ public class JoueurAutoNiveau3 extends JoueurAuto {
 		// TODO Auto-generated method stub
 		Coordonnee choix = null;
 		 if (derniereTouchee != null) {
-			 System.out.println(derniereTouchee);
 	            choix = continuerAttaque();
 	            if (choix != null) return choix;
 	        }
 		while (choix == null) {
 			int i = (int) (Math.random() * (this.getTailleGrille()));
-			System.out.println(i);
 			int j = (int) (Math.random() * (this.getTailleGrille()));
-			System.out.println(j);
 			 if ((i + j) % 2 == 0 && !attaquePrecedentes[i][j]) {
 	                choix = new Coordonnee(i, j);
-	                System.out.println(choix);
 	                attaquePrecedentes[i][j] = true;
 	            }
 			

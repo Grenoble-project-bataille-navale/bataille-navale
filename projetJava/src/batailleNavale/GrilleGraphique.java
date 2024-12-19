@@ -214,6 +214,7 @@ public class GrilleGraphique extends JPanel implements ActionListener {
 	}
 
 	public static BufferedImage resize(BufferedImage img, int newW, int newH) {
+		//methode Trouvée sur StackOverflow
 		int w = img.getWidth();
 		int h = img.getHeight();
 		BufferedImage dimg = new BufferedImage(newW, newH, img.getType());
