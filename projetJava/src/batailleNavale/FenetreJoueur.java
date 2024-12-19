@@ -25,7 +25,7 @@ public class FenetreJoueur extends JFrame {
 	}
 	public FenetreJoueur(String nom, int taille) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(40*taille, 40*taille, 85*taille, 50*taille);
+		setBounds(45*taille, 45*taille, 90*taille, 55*taille);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.grilleTirs = new GrilleGraphique(taille);
@@ -62,7 +62,7 @@ public class FenetreJoueur extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FenetreJoueur frame = new FenetreJoueur("oui", 25);
+					FenetreJoueur frame = new FenetreJoueur("oui", 10);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

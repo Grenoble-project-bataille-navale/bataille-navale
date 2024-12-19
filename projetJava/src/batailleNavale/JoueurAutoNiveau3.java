@@ -29,7 +29,6 @@ public class JoueurAutoNiveau3 extends JoueurAuto {
 	            premiereTouchee = c; 
 	        }
 	        derniereTouchee = c; 
-	        System.out.println("Dernière case touchée : " + derniereTouchee);
 	    } else if (etat == COULE) {
 	        premiereTouchee = null; 
 	        derniereTouchee = null;

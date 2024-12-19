@@ -49,7 +49,7 @@ public class BatailleNavale {
     typeJoueur1Label.setForeground(couleurPolice);
     JTextField nomJoueur1Field = new JTextField("Joueur 1");
     nomJoueur1Field.setHorizontalAlignment(JTextField.CENTER);
-    JComboBox<String> typeJoueur1 = new JComboBox<>(new String[]{"Joueur Graphique", "Joueur Texte", "IA facile", "IA Moyenne"});
+    JComboBox<String> typeJoueur1 = new JComboBox<>(new String[]{"Joueur Graphique", "Joueur Texte", "IA facile", "IA Moyenne", "IA difficile"});
     //typeJoueur1.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
     ((JLabel)typeJoueur1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -63,7 +63,7 @@ public class BatailleNavale {
     typeJoueur2Label.setFont(myFont1);
     JTextField nomJoueur2Field = new JTextField("Joueur 2");
     nomJoueur2Field.setHorizontalAlignment(JTextField.CENTER);
-    JComboBox<String> typeJoueur2 = new JComboBox<>(new String[]{"Joueur Graphique", "Joueur Texte", "IA facile", "IA Moyenne"});
+    JComboBox<String> typeJoueur2 = new JComboBox<>(new String[]{"Joueur Graphique", "Joueur Texte", "IA facile", "IA Moyenne", "IA difficile"});
     ((JLabel)typeJoueur2.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 
 
@@ -114,6 +114,7 @@ public class BatailleNavale {
     GrilleNavaleGraphique grilleDefense = new GrilleNavaleGraphique(taille);
     if (type.equals("Joueur Graphique")){
     	FenetreJoueur fj= new FenetreJoueur(nom, taille);
+    	fj.setLocationRelativeTo(null);
     	fj.setVisible(true);
         return new JoueurGraphique(fj.getGrilleDefense(), fj.getGrilleTirs(), nom);
     }else if (type.equals("Joueur Texte")){
@@ -121,9 +122,13 @@ public class BatailleNavale {
     } else if (type.equals("IA facile")){
         return new JoueurAutoNiveau1(grilleDefense, nom);
     }
-    else {
+    else if (type.equals("IA Moyenne"))
+    {
         return new JoueurAutoNiveau2(grilleDefense, nom);
 
+    }
+    else {
+    	return new JoueurAutoNiveau3(grilleDefense, nom);
     }
  }
 
