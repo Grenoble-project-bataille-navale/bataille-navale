@@ -28,7 +28,10 @@ public class FenetreJoueur extends JFrame {
 	}
 	public FenetreJoueur(String nom, int taille) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(45*taille, 45*taille, 90*taille, 52*taille);
+		if ( taille < 19 )
+			setBounds(45*taille, 45*taille, 90*taille, 53*taille);
+		else
+			setBounds(45*taille, 45*taille, 90*taille, 47*taille);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.grilleTirs = new GrilleGraphique(taille);
