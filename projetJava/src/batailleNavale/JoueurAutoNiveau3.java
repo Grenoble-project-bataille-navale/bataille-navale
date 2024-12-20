@@ -6,7 +6,7 @@ public class JoueurAutoNiveau3 extends JoueurAuto {
 	private Coordonnee derniereTouchee; 
 	private Coordonnee premiereTouchee;
 	private int directionActuelle;
-	
+	 private int damierIndex;
 	public JoueurAutoNiveau3(GrilleNavale g, String nom) {
 		super(g, nom);
 		attaquePrecedentes = new boolean[this.getTailleGrille()][this.getTailleGrille()];
@@ -24,111 +24,123 @@ public class JoueurAutoNiveau3 extends JoueurAuto {
 	}
 
 	protected void retourAttaque(Coordonnee c, int etat) {
-	    if (etat == TOUCHE) {
-	        if (premiereTouchee == null) {
-	            premiereTouchee = c; 
-	        }
-	        derniereTouchee = c; 
-	    } else if (etat == COULE) {
-	        premiereTouchee = null; 
-	        derniereTouchee = null;
-	        directionActuelle = -1;
-	    }
-	}
+        int i = c.getLigne();
+        int j = c.getColonne();
+
+        if (etat == TOUCHE) {
+            dejaTire[i][j] = 2;
+            if (premiereTouchee == null) {
+                premiereTouchee = c; 
+            }
+            derniereTouchee = c; 
+        } else if (etat == COULE) {
+            dejaTire[i][j] = 2;
+            premiereTouchee = null; 
+            derniereTouchee = null;
+            directionActuelle = -1;
+        } else if (etat == A_L_EAU) {
+            
+        }
+    }
 
 	protected void retourDefense(Coordonnee c, int etat) {
 		
 	}
 	
 	@Override
-	public Coordonnee choixAttaque() {
-		// TODO Auto-generated method stub
-		Coordonnee choix = null;
-		 if (derniereTouchee != null) {
-	            choix = continuerAttaque();
-	            if (choix != null) return choix;
-	        }
-		while (choix == null) {
-			int i = (int) (Math.random() * (this.getTailleGrille()));
-			int j = (int) (Math.random() * (this.getTailleGrille()));
-			 if ((i + j) % 2 == 0 && !attaquePrecedentes[i][j]) {
-	                choix = new Coordonnee(i, j);
-	                attaquePrecedentes[i][j] = true;
-	            }
-			
-		}
-		return choix;
-		
-	}
-	private Coordonnee continuerAttaque() {
-	    int i = derniereTouchee.getLigne();
-	    int j = derniereTouchee.getColonne();
+	 public Coordonnee choixAttaque() {
+        if (derniereTouchee != null) {
+            Coordonnee choix = continuerAttaque();
+            if (choix != null) {
+                dejaTire[choix.getLigne()][choix.getColonne()] = 1; 
+                return choix;
+            }
+        }
+        
+        int taille = getTailleGrille();
+        while (damierIndex < taille * taille) {
+            int i = damierIndex / taille;
+            int j = damierIndex % taille;
+            damierIndex++;
+            if ((i + j) % 2 == 0 && dejaTire[i][j] == 0) {
+                Coordonnee choix = new Coordonnee(i, j);
+                dejaTire[i][j] = 1;
+                return choix;
+            }
+        }
 
-	    if (directionActuelle != -1) {
-	        switch (directionActuelle) {
-	            case 0: 
-	                if (caseValide(i - 1, j)) {
-	                    attaquePrecedentes[i - 1][j] = true;
-	                    return new Coordonnee(i - 1, j);
-	                }
-	                break;
-	            case 1: 
-	                if (caseValide(i + 1, j)) {
-	                    attaquePrecedentes[i + 1][j] = true;
-	                    return new Coordonnee(i + 1, j);
-	                }
-	                break;
-	            case 2: 
-	                if (caseValide(i, j - 1)) {
-	                    attaquePrecedentes[i][j - 1] = true;
-	                    return new Coordonnee(i, j - 1);
-	                }
-	                break;
-	            case 3: 
-	                if (caseValide(i, j + 1)) {
-	                    attaquePrecedentes[i][j + 1] = true;
-	                    return new Coordonnee(i, j + 1);
-	                }
-	                break;
+     
+        for (int i = 0; i < taille; i++) {
+            for (int j = 0; j < taille; j++) {
+                if (dejaTire[i][j] == 0) {
+                    Coordonnee choix = new Coordonnee(i, j);
+                    dejaTire[i][j] = 1;
+                    return choix;
+                }
+            }
+        }
+
+  
+        return null; 
+    }
+
+	 private Coordonnee continuerAttaque() {
+	        int i = derniereTouchee.getLigne();
+	        int j = derniereTouchee.getColonne();
+
+	        if (directionActuelle != -1) {
+	            Coordonnee suivant = attaquerDirection(i, j, directionActuelle);
+	            if (suivant != null) return suivant;
+	            derniereTouchee = premiereTouchee;
+	            directionActuelle = -1; 
 	        }
 
-	    
-	        derniereTouchee = premiereTouchee;
-	        directionActuelle = -1; 
-	    }
-
-	   
-	    if (directionActuelle == -1) {
 	        i = premiereTouchee.getLigne();
 	        j = premiereTouchee.getColonne();
 
-	        if (caseValide(i - 1, j)) { 
+	        
+	        if (caseValide(i - 1, j)) {
 	            directionActuelle = 0;
-	            attaquePrecedentes[i - 1][j] = true;
 	            return new Coordonnee(i - 1, j);
 	        }
+	       
 	        if (caseValide(i + 1, j)) {
 	            directionActuelle = 1;
-	            attaquePrecedentes[i + 1][j] = true;
 	            return new Coordonnee(i + 1, j);
 	        }
-	        if (caseValide(i, j - 1)) { 
+	     
+	        if (caseValide(i, j - 1)) {
 	            directionActuelle = 2;
-	            attaquePrecedentes[i][j - 1] = true;
 	            return new Coordonnee(i, j - 1);
 	        }
-	        if (caseValide(i, j + 1)) { 
+	      
+	        if (caseValide(i, j + 1)) {
 	            directionActuelle = 3;
-	            attaquePrecedentes[i][j + 1] = true;
 	            return new Coordonnee(i, j + 1);
 	        }
+	        premiereTouchee = null;
+	        derniereTouchee = null;
+	        directionActuelle = -1;
+	        return null; 
+	    }
+	 
+	 private Coordonnee attaquerDirection(int i, int j, int direction) {
+	        int ni = i;
+	        int nj = j;
+	        switch (direction) {
+	            case 0: ni = i - 1; nj = j; break; 
+	            case 1: ni = i + 1; nj = j; break; 
+	            case 2: ni = i;     nj = j - 1; break; 
+	            case 3: ni = i;     nj = j + 1; break;
+	        }
+	        if (caseValide(ni, nj)) {
+	            return new Coordonnee(ni, nj);
+	        }
+	        return null;
 	    }
 
-	    return null; 
-	}
-
 	 private boolean caseValide(int i, int j) {
-	        return i >= 0 && i < this.getTailleGrille() && j >= 0 && j < this.getTailleGrille() && !attaquePrecedentes[i][j];
+	        return i >= 0 && i < this.getTailleGrille() && j >= 0 && j < this.getTailleGrille() && dejaTire[i][j] == 0;
 	    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
