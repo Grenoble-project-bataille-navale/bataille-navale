@@ -40,7 +40,7 @@ public class BatailleNavale {
 		JTextField nomJoueur1Field = new JTextField("Joueur 1");
 		nomJoueur1Field.setHorizontalAlignment(JTextField.CENTER);
 		JComboBox<String> typeJoueur1 = new JComboBox<>(
-				new String[] { "Joueur Graphique", "Joueur Texte", "IA facile", "IA Moyenne", "IA difficile" });
+				new String[] { "Joueur Graphique", "Joueur Texte", "IA facile", "IA Moyenne", "IA difficile", "IA exportCSV", "IA queue-management" });
 		// typeJoueur1.setAlignmentX(JComboBox.CENTER_ALIGNMENT);
 		((JLabel) typeJoueur1.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -54,7 +54,7 @@ public class BatailleNavale {
 		JTextField nomJoueur2Field = new JTextField("Joueur 2");
 		nomJoueur2Field.setHorizontalAlignment(JTextField.CENTER);
 		JComboBox<String> typeJoueur2 = new JComboBox<>(
-				new String[] { "Joueur Graphique", "Joueur Texte", "IA facile", "IA Moyenne", "IA difficile" });
+				new String[] { "Joueur Graphique", "Joueur Texte", "IA facile", "IA Moyenne", "IA difficile", "IA exportCSV", "IA queue-management" });
 		((JLabel) typeJoueur2.getRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 
 // Le bouton lancer
@@ -112,8 +112,12 @@ public class BatailleNavale {
 		} else if (type.equals("IA Moyenne")) {
 			return new JoueurAutoNiveau2(grilleDefense, nom);
 
-		} else {
+		} else if (type.equals("IA difficile")){
 			return new JoueurAutoNiveau3(grilleDefense, nom);
+		} else if (type.equals("IA exportCSV")) {
+			return new BotAleatoireDataset(grilleDefense, nom);
+		} else {
+			return new JoueurAutoStrategique(grilleDefense, nom);
 		}
 	}
 

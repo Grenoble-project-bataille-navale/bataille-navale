@@ -46,7 +46,7 @@ public void jouerAvec(Joueur j) {
 			Coordonnee c = attaquant.choixAttaque();
 			res = defenseur.defendre(c);
 			attaquant.retourAttaque(c, res);
-			defenseur.retourDefense(c, res);
+			defenseur.retourDefense(c, res);		
 			Joueur x = attaquant;
 			attaquant = defenseur;
 			defenseur = x;
