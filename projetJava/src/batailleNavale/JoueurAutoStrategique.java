@@ -5,8 +5,13 @@ import java.util.Queue;// le but est de fabriquer "une liste des attaques à ven
 
 public class JoueurAutoStrategique extends JoueurAuto {
 	
-	//https://www.ocamil.com/index.php/javaee/java-thread/files-d-attente/19-java-thread
-	//https://docs.oracle.com/fr-fr/iaas/Content/queue/queue-management.htm
+//https://www.ocamil.com/index.php/javaee/java-thread/files-d-attente/19-java-thread
+//https://docs.oracle.com/fr-fr/iaas/Content/queue/queue-management.htm
+//Cette classe représente un joueur automatique utilisant une stratégie prioritaire.
+//Elle utilise une file d’attente (Queue) pour cibler en priorité les cases voisines
+//d’une case touchée.Lorsqu’aucune cible prioritaire n’est disponible, elle tire de manière aléatoire sur une case non encore attaquée #Pierre
+	
+	
 
    private int[][] dejaTire;
 

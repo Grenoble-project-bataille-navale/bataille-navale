@@ -26,8 +26,6 @@ public Coordonnee choixAttaque() {
 }
 protected void retourDefense(Coordonnee c, int etat) {
 	switch (etat) {
-//	case A_L_EAU: JOptionPane.showMessageDialog(grilleTirs, "Votre adversaire a tiré dans l'eau");
-//	break;
 	case TOUCHE: JOptionPane.showMessageDialog(grilleTirs, "Vous avez été touché en " + c);
 		
 		
@@ -39,7 +37,6 @@ protected void retourDefense(Coordonnee c, int etat) {
 		ajouterSound("coulerSon.wav");
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
-		e.printStackTrace();
 	}
 	break;
 	case GAMEOVER:				JOptionPane.showMessageDialog(grilleTirs, "Vous avez Perdu!!!");
@@ -50,8 +47,6 @@ protected void retourDefense(Coordonnee c, int etat) {
 			boolean enFeu = etat == A_L_EAU ? false : true;
 			grilleTirs.setImage(c, enFeu);
 			switch (etat) {
-//			case A_L_EAU: JOptionPane.showMessageDialog(grilleTirs, "Dans l'eau!");
-//			break;
 			case TOUCHE: JOptionPane.showMessageDialog(grilleTirs, "Vous avez touché un navire en " + c);
 			
 			break;
@@ -60,7 +55,6 @@ protected void retourDefense(Coordonnee c, int etat) {
 				ajouterSound("coulerSon.wav");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 			break;
 			case GAMEOVER:				JOptionPane.showMessageDialog(grilleTirs, "Vous avez gagné!!!");
