@@ -206,6 +206,10 @@ public class GrilleNavale {
 		return true;
 	}
 
+	public Coordonnee[] getTirsRecus() {
+		return tirsRecus;
+	}
+
 	
 
 }
