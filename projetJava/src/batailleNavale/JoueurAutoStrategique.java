@@ -2,6 +2,7 @@ package batailleNavale;
 
 import java.util.LinkedList;
 import java.util.Queue;// le but est de fabriquer "une liste des attaques à venir"
+import java.util.concurrent.TimeUnit;
 
 public class JoueurAutoStrategique extends JoueurAuto {
 	
@@ -35,6 +36,12 @@ public class JoueurAutoStrategique extends JoueurAuto {
 
    @Override
    public Coordonnee choixAttaque() {
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
        // Si on a des cibles prioritaires, on tire sur celles-ci en premier.
 
         if(!tirsCibles.isEmpty()) {

@@ -1,5 +1,8 @@
 package batailleNavale;
 
+import java.awt.desktop.ScreenSleepEvent;
+import java.util.concurrent.TimeUnit;
+
 public class JoueurAutoNiveau1 extends JoueurAuto {
 	private int[][] dejaTire;
 
@@ -25,7 +28,14 @@ public class JoueurAutoNiveau1 extends JoueurAuto {
 
 	}
 
-	public Coordonnee choixAttaque() {
+	public Coordonnee choixAttaque()  {
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// Faire attendre l'IA une seconde pour éviter que l'expérience de Jeu soit trop instantanné
 		Coordonnee choix = null;
 		int i = (int) (Math.random() * (this.getTailleGrille()));
 		int j = (int) (Math.random() * (this.getTailleGrille()));
